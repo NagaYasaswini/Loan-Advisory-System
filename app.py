@@ -28,6 +28,24 @@ if not GEMINI_API_KEY:
 with open("Data/RBI-Policies.md", "r", encoding="utf-8") as file:
     markdown_document = file.read() 
 
+# -------------- Reading PDF -----------
+pdf_read=PyPDFLoader('Data/Co-origination of loans by Banks and NBFCs for lending to priority sector.pdf').load()
+csv_read = CSVLoader('Data/loan_applications.csv').load()
+
+# ----------- Combining the documents from csv into a text -----------------
+text1 = '\n\n'.join([x.page_content for x in pdf_read])
+text2 = '\n\n'.join([y.page_content for y in csv_read])
+
+all_data = f"Combined data of PDF, CSV\n\n"
+
+all_data += f"Markdown file\n\n{markdown_document}\n\n"
+all_data += f"## PDF Content\n\n{text1}\n\n"
+all_data += f"## CSV Content\n\n{text2}\n\n"
+
+# ------------ Create a file with all the data ------------
+with open('Data/all_data.md', 'w', encoding='utf-8') as f:
+    f.write(all_data)
+
 
 
 # Chunk the data ------------------------
@@ -38,7 +56,7 @@ headers_to_split_on = [
 ]
 
 markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers = False)
-md_header_splits = markdown_splitter.split_text(markdown_document)
+md_header_splits = markdown_splitter.split_text(all_data)
 
 #sentences = [doc.page_content for doc in md_header_splits]
 
