@@ -87,6 +87,7 @@ vectorstore.persist()
 qa_chain = RetrievalQA.from_chain_type(
     llm=llm, retriever=vectorstore.as_retriever(search_kwargs={"k": 5})
 )
+
 query = "What are the eligibility criteria in the Loan Advisory Policy?"
 response = qa_chain.invoke({"query": query})
 print(response["result"])
