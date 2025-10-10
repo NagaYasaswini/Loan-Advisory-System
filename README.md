@@ -53,7 +53,7 @@ This project is an AI-powered Loan Advisory application designed to answer queri
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-username/loan-advisory-system.git
+   git clone https://github.com/NagaYasaswini/Loan-Advisory-System.git
    cd loan-advisory-system
    ```
 
